@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+
+  auth-service:
+    build:
+      context: ./services/auth-service
+    ports:
+      - "8081:8081"
+
+  vendor-service:
+    build:
+      context: ./services/vendor-service
+    ports:
+      - "8082:8082"
+
+  notification-service:
+    build:
+      context: ./services/notification-service
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
